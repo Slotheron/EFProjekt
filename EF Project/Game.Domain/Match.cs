@@ -8,8 +8,13 @@ namespace Game.Domain
 {
     public class Match
     {
+        public Match()
+        {
+            Players = new List<PlayerMatch>();
+        }
         public int Id { get; set; }
         DateTime Time { get; set; }
         public int MaxRounds { get; set; }
+        public List<PlayerMatch> Players { get; set; }
     }
 }

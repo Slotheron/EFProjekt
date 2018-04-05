@@ -10,5 +10,7 @@ namespace Game.Domain
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        // 1 or 3.
+        public int Level { get; set; }
     }
 }
