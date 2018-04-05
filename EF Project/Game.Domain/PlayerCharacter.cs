@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Game.Domain
 {
-    public class SpecialMove
+    public class PlayerCharacter
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        // 1 or 3.
-        public int Level { get; set; }
+        public int PlayerId { get; set; }
         public int CharacterId { get; set; }
+
+        public Player Player { get; set; }
+        public Character Character { get; set; }
     }
 }

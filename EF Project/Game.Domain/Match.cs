@@ -16,5 +16,6 @@ namespace Game.Domain
         DateTime Time { get; set; }
         public int MaxRounds { get; set; }
         public List<PlayerMatch> Players { get; set; }
+        public int TournamentId { get; set; }
     }
 }

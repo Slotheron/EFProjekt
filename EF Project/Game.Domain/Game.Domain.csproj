@@ -43,6 +43,7 @@
     <Compile Include="Character.cs" />
     <Compile Include="Match.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="PlayerCharacter.cs" />
     <Compile Include="PlayerMatch.cs" />
     <Compile Include="SpecialMove.cs" />
     <Compile Include="Tournament.cs" />
