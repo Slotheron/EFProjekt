@@ -114,6 +114,10 @@
     <Compile Include="Migrations\20180406082724_PlayerMatchCharacter.designer.cs">
       <DependentUpon>20180406082724_PlayerMatchCharacter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20180409084342_MatchFix.cs" />
+    <Compile Include="Migrations\20180409084342_MatchFix.designer.cs">
+      <DependentUpon>20180409084342_MatchFix.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\GameContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -13,7 +13,7 @@ namespace Game.Domain
             Players = new List<PlayerMatch>();
         }
         public int Id { get; set; }
-        DateTime Time { get; set; }
+        public DateTime Time { get; set; }
         public int MaxRounds { get; set; }
         public List<PlayerMatch> Players { get; set; }
         public int TournamentId { get; set; }
