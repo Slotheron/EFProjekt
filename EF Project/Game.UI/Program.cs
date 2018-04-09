@@ -20,7 +20,7 @@ namespace Game.UI
             //TournamentModification.FindTournament();
             //TournamentModification.FindFirstTournament();
             //TournamentModification.UpdateTournament();
-            //TournamentModification.UpdateTournamentDisconnected();
+            ////TournamentModification.UpdateTournamentDisconnected();
             //TournamentModification.DeleteTournament();
             //TournamentModification.DeleteManyTournaments();
             //TournamentModification.DeleteManyTournamentsDisconnected();
@@ -31,7 +31,7 @@ namespace Game.UI
             //MatchModification.FindMatch();
             //MatchModification.FindFirstMatchTime();
             //MatchModification.UpdateMatch();
-            //MatchModification.UpdateMatchDisconnected();
+            ////MatchModification.UpdateMatchDisconnected();
             //MatchModification.DeleteMatch();
             //MatchModification.DeleteManyMatchesFromTournament();
 
@@ -40,7 +40,7 @@ namespace Game.UI
             //PlayerModification.GetAllPlayers();
             //PlayerModification.FindPlayer();
             //PlayerModification.UpdatePlayer();
-            //PlayerModification.UpdatePlayerDisconnected();
+            ////PlayerModification.UpdatePlayerDisconnected();
             //PlayerModification.DeletePlayer();
             //PlayerModification.DeleteManyPlayers();
             //PlayerModification.DeleteManyPlayersDisconnected();
@@ -58,9 +58,9 @@ namespace Game.UI
             //SpMoveModification.AddSpecialMove();
             //SpMoveModification.AddSpecialMoves();
             //SpMoveModification.GetAllSpecialMoves();
-            SpMoveModification.FindSpecialMove();
+            //SpMoveModification.FindSpecialMove();
             //SpMoveModification.UpdateSpecialMove();
-            //SpMoveModification.UpdateSpecialMoveDisconnected();
+            ////SpMoveModification.UpdateSpecialMoveDisconnected();
             //SpMoveModification.DeleteSpecialMove();
             //SpMoveModification.DeleteManySpecialMoves();
             //SpMoveModification.DeleteManySpecialMovesDisconnected();
