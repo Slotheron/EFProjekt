@@ -12,6 +12,8 @@ namespace Game.Data
         public DbSet<Player> Players { get; set; }
         public DbSet<Character> Characters { get; set; }
         public DbSet<SpecialMove> Moves { get; set; }
+        public DbSet<PlayerMatch> PlayerMatch { get; set; }
+        public DbSet<PlayerCharacter> PlayerCharacter { get; set; }
 
 
         public static readonly LoggerFactory MovieLoggerFactory
@@ -24,7 +26,8 @@ namespace Game.Data
        protected override void OnModelCreating(ModelBuilder modelBuilder)
        {
             modelBuilder.Entity<PlayerMatch>().HasKey(p => new { p.PlayerId, p.MatchId });
-       }
+            modelBuilder.Entity<PlayerCharacter>().HasKey(p => new { p.PlayerId, p.CharacterId });
+        }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
