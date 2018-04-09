@@ -54,6 +54,16 @@ namespace Game.UI
             //CharacterModification.DeleteCharacter();
             //CharacterModification.DeleteManyCharacters();
             //CharacterModification.DeleteManyCharactersDisconnected();
+
+            //SpMoveModification.AddSpecialMove();
+            //SpMoveModification.AddSpecialMoves();
+            //SpMoveModification.GetAllSpecialMoves();
+            SpMoveModification.FindSpecialMove();
+            //SpMoveModification.UpdateSpecialMove();
+            //SpMoveModification.UpdateSpecialMoveDisconnected();
+            //SpMoveModification.DeleteSpecialMove();
+            //SpMoveModification.DeleteManySpecialMoves();
+            //SpMoveModification.DeleteManySpecialMovesDisconnected();
         }
 
     }
