@@ -23,7 +23,7 @@ namespace Game.UI
             //TournamentModification.UpdateTournamentDisconnected();
             //TournamentModification.DeleteTournament();
             //TournamentModification.DeleteManyTournaments();
-            //TournamentModification.DeleteManyDisconnectedTournaments();
+            //TournamentModification.DeleteManyTournamentsDisconnected();
 
             //MatchModification.AddMatch();
             //MatchModification.AddMatches();
@@ -34,7 +34,16 @@ namespace Game.UI
             //MatchModification.UpdateMatchDisconnected();
             //MatchModification.DeleteMatch();
             //MatchModification.DeleteManyMatchesFromTournament();
+
+            PlayerModification.AddPlayer();
+            PlayerModification.AddPlayers();
+            PlayerModification.GetAllPlayers();
+            PlayerModification.FindPlayer();
+            //PlayerModification.UpdatePlayer();
+            //PlayerModification.UpdatePlayerDisconnected();
+            //PlayerModification.DeletePlayer();
+            //PlayerModification.DeleteManyPlayers();
         }
-        
+
     }
 }

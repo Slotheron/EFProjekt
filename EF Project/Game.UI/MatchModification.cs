@@ -15,27 +15,31 @@ namespace Game.UI
         //preferably after players have been added.
         public static void AddMatch()
         {
+            Tournament tour = _context.Tournaments.FirstOrDefault(t => t.Name.StartsWith("Dreamhack"));
+
             Match newMatch = new Match();
             newMatch.MaxRounds = 10;
-            newMatch.TournamentId = 8;
+            newMatch.TournamentId = tour.Id;
             newMatch.Time = new DateTime(2018, 4, 9, 9, 15, 0);
 
             _context.Matches.Add(newMatch);
             _context.SaveChanges();
-            Console.WriteLine("Match with Id #" + newMatch.Id +" is scheduled for: " + newMatch.Time + " and has been added to database.");
+            Console.WriteLine("\nMatch with Id #" + newMatch.Id +" is scheduled for: " + newMatch.Time + " and has been added to database.");
         }
 
         //in future add console interface for user input
         public static void AddMatches()
         {
+            Tournament tour = _context.Tournaments.FirstOrDefault(t => t.Name.StartsWith("Dreamhack"));
+
             Match newMatch1 = new Match();
             newMatch1.MaxRounds = 5;
-            newMatch1.TournamentId = 8;
+            newMatch1.TournamentId = tour.Id;
             newMatch1.Time = new DateTime(2018, 4, 9, 9, 30, 0);
 
             Match newMatch2 = new Match();
             newMatch2.MaxRounds = 5;
-            newMatch2.TournamentId = 8;
+            newMatch2.TournamentId = tour.Id;
             newMatch2.Time = new DateTime(2018, 4, 9, 9, 45, 0);
 
             List<Match> MatchList = new List<Match> { newMatch1, newMatch2 };
@@ -43,7 +47,7 @@ namespace Game.UI
             _context.SaveChanges();
             foreach(Match m in MatchList)
             {
-                Console.WriteLine("Match with Id #" + m.Id + " is scheduled for: " + m.Time + " and has been added to database.");
+                Console.WriteLine("\nMatch with Id #" + m.Id + " is scheduled for: " + m.Time + " and has been added to database.");
             }
         }
 
@@ -53,93 +57,98 @@ namespace Game.UI
 
             foreach (var m in matches)
             {
-                Console.WriteLine("Match #" + m.Id + " is scheduled for: " + m.Time.TimeOfDay);
+                Console.WriteLine("\nMatch #" + m.Id + " is scheduled for: " + m.Time.TimeOfDay);
             }
         }
 
         public static void FindMatch()
         {
-            //Find by match ID
-            var match1 = _context.Matches.FirstOrDefault(m => m.Id == 3);
-            var match2 = _context.Matches.Find(2);
+            Tournament tour = _context.Tournaments.FirstOrDefault(t => t.Name.StartsWith("Dreamhack"));
+
+            var match1 = _context.Matches.FirstOrDefault(m => m.TournamentId == tour.Id);
+            var match2 = _context.Matches.LastOrDefault(m => m.TournamentId == tour.Id);
             //Find By Tournament ID
-            var match3 = _context.Matches.FirstOrDefault(m => m.TournamentId == 8);
-            Console.WriteLine("Match #" + match1.Id + " : " + match1.Time.TimeOfDay);
-            Console.WriteLine("Match #" + match2.Id + " starts at: " + match2.Time.TimeOfDay);
+            if (match1.Id != match2.Id)
+            {
+                Console.WriteLine("\nMatch #" + match1.Id + " : " + match1.Time.TimeOfDay);
+                Console.WriteLine("\nMatch #" + match2.Id + " starts at: " + match2.Time.TimeOfDay);
+            }
+            else
+            {
+                Console.WriteLine("\nMatch #" + match1.Id + " : " + match1.Time.TimeOfDay);
+                Console.WriteLine("\nDuplicate Match");
+            }
         }
 
         public static void FindFirstMatchTime()
         {
+            Tournament tour = _context.Tournaments.FirstOrDefault(t => t.Name.StartsWith("Dreamhack"));
             //Find By Time
             var MatchTime = new DateTime(2018, 4, 9, 9, 15, 0);
             //Find By Tournament ID
-            int tourID = 8;
-            var match1 = _context.Matches.FirstOrDefault(m => m.Time == MatchTime && m.TournamentId == tourID);
-            Console.WriteLine("Match that starts at " + MatchTime.TimeOfDay + " is Match #" + match1.Id);
+            var match1 = _context.Matches.FirstOrDefault(m => m.Time == MatchTime && m.TournamentId == tour.Id);
+            Console.WriteLine("\nMatch that starts at " + MatchTime.TimeOfDay + " is Match #" + match1.Id);
         }
 
         //possibility for multithreading here
         public static void UpdateMatch()
         {
+            Tournament tour = _context.Tournaments.FirstOrDefault(t => t.Name.StartsWith("Dreamhack"));
             //Find By Time
             var MatchTime = new DateTime(2018, 4, 9, 9, 15, 0);
             //Find By Tournament ID
-            int tourID = 8;
-            var match1 = _context.Matches.FirstOrDefault(m => m.Time == MatchTime && m.TournamentId == tourID);
-            var tournament1 = _context.Tournaments.FirstOrDefault(t => t.Id == tourID);
+            var match1 = _context.Matches.FirstOrDefault(m => m.Time == MatchTime && m.TournamentId == tour.Id);
+            var tournament1 = _context.Tournaments.FirstOrDefault(t => t.Id == tour.Id);
             _context.Matches.Update(match1);
             _context.SaveChanges();
-            Console.WriteLine(tournament1.Name + " match #" + match1.Id  + " has been updated in the database");
+            Console.WriteLine("\n" + tournament1.Name + " match #" + match1.Id  + " has been updated in the database");
         }
 
         public static void UpdateMatchDisconnected()
         {
+            Tournament tour = _context.Tournaments.FirstOrDefault(t => t.Name.StartsWith("Dreamhack"));
             //Find By Time
             var MatchTime = new DateTime(2018, 4, 9, 9, 15, 0);
             //Find By Tournament ID
-            int tourID = 8;
-            var match1 = _context.Matches.FirstOrDefault(m => m.Time == MatchTime && m.TournamentId == tourID);
-            var tournament1 = _context.Tournaments.FirstOrDefault(t => t.Id == tourID);
+            var match1 = _context.Matches.FirstOrDefault(m => m.Time == MatchTime && m.TournamentId == tour.Id);
+            var tournament1 = _context.Tournaments.FirstOrDefault(t => t.Id == tour.Id);
             var newContext = new GameContext();
             newContext.Matches.Update(match1);
             newContext.SaveChanges();
-            Console.WriteLine(tournament1.Name + " match #" + match1.Id + " has been updated in the database");
+            Console.WriteLine("\n" + tournament1.Name + " match #" + match1.Id + " has been updated in the database");
         }
 
         public static void DeleteMatch()
         {
+            Tournament tour = _context.Tournaments.FirstOrDefault(t => t.Name.StartsWith("Dreamhack"));
             var MatchTime = new DateTime(2018, 4, 9, 9, 15, 0);
-            int tourID = 8;
             //Find By ID
-            var match = _context.Matches.Find(1);
+            //var match = _context.Matches.Find(4);
             //Find By Time / TournamentID 
-            var match1 = _context.Matches.FirstOrDefault(m => m.TournamentId == tourID && m.Time == MatchTime);
-            var tournament1 = _context.Tournaments.FirstOrDefault(t => t.Id == tourID);
-            _context.Matches.Remove(match);
+            var match1 = _context.Matches.FirstOrDefault(m => m.TournamentId == tour.Id && m.Time == MatchTime);
+            _context.Matches.Remove(match1);
             _context.SaveChanges();
-            Console.WriteLine("Match #" + match1.Id + "has been deleted from " + tournament1 + ".");
+            Console.WriteLine("\nMatch #" + match1.Id + "has been deleted from " + tour.Name + ".");
         }
 
         public static void DeleteManyMatchesFromTournament()
         {
-            string tourName = "Dreamhack 2045";
-            var tournament1 = _context.Tournaments.FirstOrDefault(t => t.Name == tourName);
-            var matches = _context.Matches.Where(m => m.TournamentId == tournament1.Id).ToList();
+            Tournament tour = _context.Tournaments.FirstOrDefault(t => t.Name.StartsWith("Dreamhack"));
+            var matches = _context.Matches.Where(m => m.TournamentId == tour.Id).ToList();
 
             _context.Matches.RemoveRange(matches);
             _context.SaveChanges();
 
             foreach(Match m in matches)
             {
-                Console.WriteLine("\tMatch #" + m.Id + " has been deleted from " + tournament1.Name + ".");
+                Console.WriteLine("\nMatch #" + m.Id + " has been deleted from " + tour.Name + ".");
             }
         }
 
         public static void DeleteManyMatchesDisconnected()
         {
-            string tourName = "Dreamhack 2045";
-            var tournament1 = _context.Tournaments.FirstOrDefault(t => t.Name == tourName);
-            var matches = _context.Matches.Where(m => m.TournamentId == tournament1.Id).ToList();
+            Tournament tour = _context.Tournaments.FirstOrDefault(t => t.Name.StartsWith("Dreamhack"));
+            var matches = _context.Matches.Where(m => m.TournamentId == tour.Id).ToList();
 
             var newContext = new GameContext();
             newContext.Matches.RemoveRange(matches);
@@ -147,7 +156,7 @@ namespace Game.UI
 
             foreach (Match m in matches)
             {
-                Console.WriteLine("\tMatch #" + m.Id + " has been deleted from " + tournament1.Name + ".");
+                Console.WriteLine("\nMatch #" + m.Id + " has been deleted from " + tour.Name + ".");
             }
         }
     }

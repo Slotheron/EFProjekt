@@ -56,8 +56,10 @@ namespace Game.UI
 
         public static void FindTournament()
         {
-            var tournament1 = _context.Tournaments.FirstOrDefault(t => t.Id == 8);
-            var tournament2 = _context.Tournaments.Find(7);
+            //var tournament1 = _context.Tournaments.FirstOrDefault(t => t.Id == 8);
+            //var tournament2 = _context.Tournaments.Find(14);
+            var tournament1 = _context.Tournaments.FirstOrDefault(t => t.Name == "Dreamhack 2045");
+            var tournament2 = _context.Tournaments.FirstOrDefault(t => t.Name == "Dreamhack 2046");
             Console.WriteLine(tournament1.Name);
             Console.WriteLine(tournament2.Name);
         }
@@ -73,7 +75,7 @@ namespace Game.UI
         public static void UpdateTournament()
         {
             string tourName = "Dream";
-            var tournament1 = _context.Tournaments.Where(t => t.Name.StartsWith(tourName) && t.PrizeMoney == 75000).ToList();
+            var tournament1 = _context.Tournaments.Where(t => t.Name.StartsWith(tourName)).ToList();
 
             List<Tournament> consoleList = new List<Tournament>();
             var newContext = new GameContext();
@@ -96,7 +98,7 @@ namespace Game.UI
         public static void UpdateTournamentDisconnected()
         {
             string tourName = "Dream";
-            var tournament1 = _context.Tournaments.Where(t => t.Name.StartsWith(tourName) && t.PrizeMoney == 75000).ToList();
+            var tournament1 = _context.Tournaments.Where(t => t.Name.StartsWith(tourName)).ToList();
 
             List<Tournament> consoleList = new List<Tournament>();
             var newContext = new GameContext();
@@ -118,9 +120,11 @@ namespace Game.UI
 
         public static void DeleteTournament()
         {
-            var movie = _context.Tournaments.Find(7);
-            _context.Tournaments.Remove(movie);
+            string tourName = "Dreamhack";
+            var tournament = _context.Tournaments.FirstOrDefault(t => t.Name.StartsWith(tourName));
+            _context.Tournaments.Remove(tournament);
             _context.SaveChanges();
+            Console.WriteLine("\n" + tournament.Id + ": " + tournament.Name + " deleted from database.");
         }
 
         public static void DeleteManyTournaments()
@@ -129,6 +133,10 @@ namespace Game.UI
             var tournaments = _context.Tournaments.Where(t => t.Name.StartsWith(tourName)).ToList();
             _context.Tournaments.RemoveRange(tournaments);
             _context.SaveChanges();
+            foreach(Tournament t in tournaments)
+            {
+                Console.WriteLine("\n" + t.Id + ": " + t.Name + " deleted from database.");
+            }
         }
          
         public static void DeleteManyTournamentsDisconnected()
