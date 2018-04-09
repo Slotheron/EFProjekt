@@ -11,6 +11,11 @@ namespace Game.Domain
         public int PlayerId { get; set; }
         public int CharacterId { get; set; }
 
+        // 1-12
+        public int Color { get; set; }
+        //point, mid, anchor
+        public string Position { get; set; }
+
         public Player Player { get; set; }
         public Character Character { get; set; }
     }

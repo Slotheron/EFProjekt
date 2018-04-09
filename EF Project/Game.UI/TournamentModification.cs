@@ -68,7 +68,7 @@ namespace Game.UI
         {
             string tourName = "Dream";
             var tournament1 = _context.Tournaments.FirstOrDefault(t => t.Name.StartsWith(tourName));
-            Console.WriteLine(tournament1.Id + ": " + tournament1.Name);
+            Console.WriteLine("\nId: " + tournament1.Id + "\nName: " + tournament1.Name);
         }
 
         //possibility for multithreading here
@@ -91,7 +91,7 @@ namespace Game.UI
 
             foreach (Tournament t2 in consoleList)
             {
-                Console.WriteLine(t2.Id + ": " + t2.Name + " - has been updated in the database");
+                Console.WriteLine("\nId" + t2.Id + "\nName: " + t2.Name + " - has been updated in the database");
             }
         }
 
@@ -114,7 +114,7 @@ namespace Game.UI
 
             foreach (Tournament t2 in consoleList)
             {
-                Console.WriteLine(t2.Id + ": " + t2.Name + " - has been updated in the database");
+                Console.WriteLine("\nId" + t2.Id + "\nName: " + t2.Name + " - has been updated in the database");
             }
         }
 
@@ -124,7 +124,7 @@ namespace Game.UI
             var tournament = _context.Tournaments.FirstOrDefault(t => t.Name.StartsWith(tourName));
             _context.Tournaments.Remove(tournament);
             _context.SaveChanges();
-            Console.WriteLine("\n" + tournament.Id + ": " + tournament.Name + " deleted from database.");
+            Console.WriteLine("\nId" + tournament.Id + "\nName: " + tournament.Name + " deleted from database.");
         }
 
         public static void DeleteManyTournaments()
@@ -135,7 +135,7 @@ namespace Game.UI
             _context.SaveChanges();
             foreach(Tournament t in tournaments)
             {
-                Console.WriteLine("\n" + t.Id + ": " + t.Name + " deleted from database.");
+                Console.WriteLine("\nId" + t.Id + "\nName: " + t.Name + " deleted from database.");
             }
         }
          

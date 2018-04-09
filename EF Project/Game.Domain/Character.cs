@@ -10,9 +10,5 @@ namespace Game.Domain
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        // 1-12
-        public int Color { get; set; }
-        //point, mid, anchor
-        public string Position { get; set; }
     }
 }

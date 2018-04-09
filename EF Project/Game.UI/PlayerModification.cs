@@ -71,7 +71,7 @@ namespace Game.UI
             player.Nationality = "Swedish";
             _context.Players.Update(player);
             _context.SaveChanges();
-            Console.WriteLine("\n" + player.Id + ": " + player.Name + "'s Nationality has been updated to " + player.Nationality + ".");
+            Console.WriteLine("\nId" + player.Id + "\nName: " + player.Name + "'s Nationality has been updated to " + player.Nationality + ".");
         }
 
         public static void UpdatePlayerDisconnected()
@@ -81,7 +81,7 @@ namespace Game.UI
             player.Nationality = "Swedish";
             newContext.Players.Update(player);
             newContext.SaveChanges();
-            Console.WriteLine("\n" + player.Id + ": " + player.Name + "'s Nationality has been updated to " + player.Nationality + ".");
+            Console.WriteLine("\nId" + player.Id + "\nName: " + player.Name + "'s Nationality has been updated to " + player.Nationality + ".");
         }
 
         public static void DeletePlayer()
@@ -89,7 +89,7 @@ namespace Game.UI
             var player = _context.Players.FirstOrDefault(p => p.Name == "ZergToss");
             _context.Players.Remove(player);
             _context.SaveChanges();
-            Console.WriteLine("\n" + player.Id + ": " + player.Name + " has been removed from the database.");
+            Console.WriteLine("\nId" + player.Id + "\nName: " + player.Name + " has been removed from the database.");
         }
 
         public static void DeleteManyPlayers()
@@ -101,11 +101,11 @@ namespace Game.UI
 
             foreach (Player p in players)
             {
-                Console.WriteLine("\n" + p.Id + ": " + p.Name + " has been removed from the database.");
+                Console.WriteLine("\nId" + p.Id + "\nName: " + p.Name + " has been removed from the database.");
             }
         }
 
-        public static void DeleteManyMatchesDisconnected()
+        public static void DeleteManyPlayersDisconnected()
         {
             var newContext = new GameContext();
             var players = _context.Players.Where(p => p.Name == "Petra" || p.Name == "Joe").ToList();
@@ -115,7 +115,7 @@ namespace Game.UI
 
             foreach (Player p in players)
             {
-                Console.WriteLine("\n" + p.Id + ": " + p.Name + " has been removed from the database.");
+                Console.WriteLine("\nId" + p.Id + "\nName: " + p.Name + " has been removed from the database.");
             }
         }
     }

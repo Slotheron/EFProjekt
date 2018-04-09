@@ -35,14 +35,25 @@ namespace Game.UI
             //MatchModification.DeleteMatch();
             //MatchModification.DeleteManyMatchesFromTournament();
 
-            PlayerModification.AddPlayer();
-            PlayerModification.AddPlayers();
-            PlayerModification.GetAllPlayers();
-            PlayerModification.FindPlayer();
+            //PlayerModification.AddPlayer();
+            //PlayerModification.AddPlayers();
+            //PlayerModification.GetAllPlayers();
+            //PlayerModification.FindPlayer();
             //PlayerModification.UpdatePlayer();
             //PlayerModification.UpdatePlayerDisconnected();
             //PlayerModification.DeletePlayer();
             //PlayerModification.DeleteManyPlayers();
+            //PlayerModification.DeleteManyPlayersDisconnected();
+
+            //CharacterModification.AddCharacter();
+            //CharacterModification.AddCharacters();
+            //CharacterModification.GetAllCharacters();
+            //CharacterModification.FindCharacter();
+            //CharacterModification.UpdateCharacter();
+            ////CharacterModification.UpdateCharacterDisconnected();
+            //CharacterModification.DeleteCharacter();
+            //CharacterModification.DeleteManyCharacters();
+            //CharacterModification.DeleteManyCharactersDisconnected();
         }
 
     }
