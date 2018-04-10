@@ -18,8 +18,7 @@ namespace Game.Data
                 _context.SaveChanges();
             }
         }
-
-        //in future add console interface for user input
+        
         public static void AddCharacters(List<Character> characters)
         {
             using (var _context = new GameContext())
@@ -45,7 +44,7 @@ namespace Game.Data
             using (var _context = new GameContext())
             {
                 var character = _context.Characters
-                    .Include(c => c.Id == id)
+                    .Where(c => c.Id == id)
                     .FirstOrDefault();
                 return character;
             }

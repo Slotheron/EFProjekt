@@ -19,7 +19,24 @@ namespace Game.Data
             }
         }
 
-        //in future add console interface for user input
+        public static void AddPlayer(Player player, Character character)
+        {
+            using (var _context = new GameContext())
+            {
+                _context.Players.Add(player);
+                _context.Add(new PlayerCharacter{ Player = player, Character = character });
+                _context.SaveChanges();
+            }
+        }
+        
+        public static void AddCharacterToPlayer(Player player, Character character)
+        {
+            using (var _context = new GameContext())
+            {
+                _context.PlayerCharacter.Add(new PlayerCharacter { PlayerId = player.Id, CharacterId = character.Id });
+                _context.SaveChanges();
+            }
+        }
         public static void AddPlayers(List<Player> players)
         {
             using (var _context = new GameContext())
@@ -48,16 +65,14 @@ namespace Game.Data
             {
                 var player = _context.Players.Where(p => p.Id == id)
                     .Include(p => p.Characters)
-                        .ThenInclude(pc => pc.Color)
-                    .Include(p => p.Characters)
-                        .ThenInclude(pc => pc.Position)
+                        .ThenInclude(pc => pc.Character)
+                        .ThenInclude(c => c.Moves)
                     .ToList()
                     .FirstOrDefault();
                 return player;
             }
         }
 
-        //possibility for multithreading here
         public static void UpdatePlayerAge(Player player, int age)
         {
             using (var _context = new GameContext())
