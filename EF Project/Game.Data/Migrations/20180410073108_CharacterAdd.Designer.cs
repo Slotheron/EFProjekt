@@ -11,9 +11,10 @@ using System;
 namespace Game.Data.Migrations
 {
     [DbContext(typeof(GameContext))]
-    partial class GameContextModelSnapshot : ModelSnapshot
+    [Migration("20180410073108_CharacterAdd")]
+    partial class CharacterAdd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,8 +47,6 @@ namespace Game.Data.Migrations
                     b.Property<int>("TournamentId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("TournamentId");
 
                     b.ToTable("Matches");
                 });
@@ -111,8 +110,6 @@ namespace Game.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CharacterId");
-
                     b.ToTable("Moves");
                 });
 
@@ -132,14 +129,6 @@ namespace Game.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tournaments");
-                });
-
-            modelBuilder.Entity("Game.Domain.Match", b =>
-                {
-                    b.HasOne("Game.Domain.Tournament")
-                        .WithMany("Matches")
-                        .HasForeignKey("TournamentId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Game.Domain.PlayerCharacter", b =>
@@ -165,14 +154,6 @@ namespace Game.Data.Migrations
                     b.HasOne("Game.Domain.Player", "Player")
                         .WithMany("Matches")
                         .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Game.Domain.SpecialMove", b =>
-                {
-                    b.HasOne("Game.Domain.Character")
-                        .WithMany("Moves")
-                        .HasForeignKey("CharacterId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

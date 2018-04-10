@@ -89,13 +89,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CharacterModification.cs" />
-    <Compile Include="MatchModification.cs" />
-    <Compile Include="PlayerModification.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SpMoveModification.cs" />
-    <Compile Include="TournamentModification.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
