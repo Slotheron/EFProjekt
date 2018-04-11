@@ -151,7 +151,7 @@ namespace Game.Data
 
         //Async
         ////Chose to have async for the Get methods because data is not being updated or changed having a reduced chance to break.
-        public async Task<SpecialMove> FindSpecialMoveByIdAsync(int id)
+        public async Task<SpecialMove> GetSpecialMoveByIdAsync(int id)
         {
             using (var _context = new GameContext())
             {
@@ -160,7 +160,7 @@ namespace Game.Data
             }
         }
 
-        public async Task<List<SpecialMove>> FindSpecialMovesByCharacterIdAsync(int id)
+        public async Task<List<SpecialMove>> GetSpecialMovesByCharacterIdAsync(int id)
         {
             using (var _context = new GameContext())
             {

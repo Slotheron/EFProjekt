@@ -10,7 +10,6 @@ namespace Game.Data
 {
     public class MatchRepo
     {
-
         public void AddMatch(Match match)
         {
             using (var _context = new GameContext())
@@ -48,6 +47,18 @@ namespace Game.Data
             }
         }
 
+        public void AddPlayersToMatch(Match match, List<Player> players)
+        {
+            using (var _context = new GameContext())
+            {
+                foreach(Player p in players)
+                {
+                    AddPlayerToMatch(match, p);
+                    //AddPlayerTomatch(match, p.Id);
+                }
+            }
+        }
+
         public void AddMatches(List<Match> matches)
         {
             using (var _context = new GameContext())
@@ -63,7 +74,11 @@ namespace Game.Data
             {
                 var matches = _context.Matches
                     .Include(m => m.Players)
-                        .ThenInclude(pm => pm.Player )
+                        .ThenInclude(pm => pm.Player)
+                        .ThenInclude(p => p.Characters)
+                        .ThenInclude(pc => pc.Character.Moves)
+                    .Include(m => m.Players)
+                        .ThenInclude(pm => pm.Player)
                         .ThenInclude(p => p.Characters)
                         .ThenInclude(pc => pc.Color)
                     .Include(m => m.Players)
@@ -75,11 +90,15 @@ namespace Game.Data
             }
         }
 
-        public Match FindMatchById(int id)
+        public Match GetMatchById(int id)
         {
             using (var _context = new GameContext())
             {
                 var match = _context.Matches.Where(m => m.Id == id)
+                    .Include(m => m.Players)
+                        .ThenInclude(pm => pm.Player)
+                        .ThenInclude(p => p.Characters)
+                        .ThenInclude(pc => pc.Character.Moves)
                     .Include(m => m.Players)
                         .ThenInclude(pm => pm.Player)
                         .ThenInclude(p => p.Characters)
@@ -93,12 +112,16 @@ namespace Game.Data
             }
         }
 
-        public Match FindFirstMatchByTournamentId(int id)
+        public Match GetFirstMatchByTournamentId(int id)
         {
             using (var _context = new GameContext())
             {
                 var match = _context.Matches.Where(m => m.TournamentId == id)
                     .OrderByDescending(m => m.Time)
+                    .Include(m => m.Players)
+                        .ThenInclude(pm => pm.Player)
+                        .ThenInclude(p => p.Characters)
+                        .ThenInclude(pc => pc.Character.Moves)
                     .Include(m => m.Players)
                         .ThenInclude(pm => pm.Player)
                         .ThenInclude(p => p.Characters)
@@ -126,6 +149,9 @@ namespace Game.Data
         {
             using (var _context = new GameContext())
             {
+                var playerMatches = _context.PlayerMatch.Where(pm => pm.MatchId == match.Id)
+                    .ToList(); 
+                _context.PlayerMatch.RemoveRange(playerMatches);
                 _context.Matches.Remove(match);
                 _context.SaveChanges();
             }
@@ -135,7 +161,10 @@ namespace Game.Data
         {
             using (var _context = new GameContext())
             {
-                _context.Matches.RemoveRange(matches);
+                foreach(Match m in matches)
+                {
+                    DeleteMatch(m);
+                }
                 _context.SaveChanges();
             }
         }
@@ -150,6 +179,10 @@ namespace Game.Data
                     .Include(m => m.Players)
                         .ThenInclude(pm => pm.Player)
                         .ThenInclude(p => p.Characters)
+                        .ThenInclude(pc => pc.Character.Moves)
+                    .Include(m => m.Players)
+                        .ThenInclude(pm => pm.Player)
+                        .ThenInclude(p => p.Characters)
                         .ThenInclude(pc => pc.Color)
                     .Include(m => m.Players)
                         .ThenInclude(pm => pm.Player)
@@ -160,12 +193,15 @@ namespace Game.Data
             }
         }
 
-        public async Task<Match> FindFirstMatchByTournamentIdAsync(int id)
+        public async Task<Match> GetFirstMatchByTournamentIdAsync(int id)
         {
             using (var _context = new GameContext())
             {
                 var match = await _context.Matches.Where(m => m.TournamentId == id)
-                    .OrderByDescending(m => m.Time)
+                    .Include(m => m.Players)
+                        .ThenInclude(pm => pm.Player)
+                        .ThenInclude(p => p.Characters)
+                        .ThenInclude(pc => pc.Character.Moves)
                     .Include(m => m.Players)
                         .ThenInclude(pm => pm.Player)
                         .ThenInclude(p => p.Characters)
@@ -184,6 +220,10 @@ namespace Game.Data
             using (var _context = new GameContext())
             {
                 var matches = await _context.Matches
+                    .Include(m => m.Players)
+                        .ThenInclude(pm => pm.Player)
+                        .ThenInclude(p => p.Characters)
+                        .ThenInclude(pc => pc.Character.Moves)
                     .Include(m => m.Players)
                         .ThenInclude(pm => pm.Player)
                         .ThenInclude(p => p.Characters)
