@@ -10,7 +10,8 @@ namespace Game.Data
 {
     public class MatchRepo
     {
-        public static void AddMatch(Match match)
+
+        public void AddMatch(Match match)
         {
             using (var _context = new GameContext())
             {
@@ -19,7 +20,35 @@ namespace Game.Data
             }
         }
         
-        public static void AddMatches(List<Match> matches)
+        public void AddMatch(Match match, Player player1, Player player2)
+        {
+            using (var _context = new GameContext())
+            {
+                _context.PlayerMatch.Add(new PlayerMatch { PlayerId = player1.Id, MatchId = match.Id });
+                _context.PlayerMatch.Add(new PlayerMatch { PlayerId = player2.Id, MatchId = match.Id });
+                _context.SaveChanges();
+            }
+        }
+
+        public void AddPlayerToMatch(Match match, Player player)
+        {
+            using (var _context = new GameContext())
+            {
+                _context.PlayerMatch.Add(new PlayerMatch { PlayerId = player.Id, MatchId = match.Id });
+                _context.SaveChanges();
+            }
+        }
+
+        public void AddPlayerToMatchById(int iDmatch, int iDplayer)
+        {
+            using (var _context = new GameContext())
+            {
+                _context.PlayerMatch.Add(new PlayerMatch { PlayerId = iDplayer, MatchId = iDmatch });
+                _context.SaveChanges();
+            }
+        }
+
+        public void AddMatches(List<Match> matches)
         {
             using (var _context = new GameContext())
             {
@@ -28,7 +57,7 @@ namespace Game.Data
             }
         }
 
-        public static List<Match> GetAllMatches()
+        public List<Match> GetAllMatches()
         {
             using (var _context = new GameContext())
             {
@@ -46,7 +75,7 @@ namespace Game.Data
             }
         }
 
-        public static Match FindMatchById(int id)
+        public Match FindMatchById(int id)
         {
             using (var _context = new GameContext())
             {
@@ -59,13 +88,12 @@ namespace Game.Data
                         .ThenInclude(pm => pm.Player)
                         .ThenInclude(p => p.Characters)
                         .ThenInclude(pc => pc.Position)
-                    .ToList()
                     .FirstOrDefault();
                 return match;
             }
         }
 
-        public static Match FindFirstMatchByTournamentId(int id)
+        public Match FindFirstMatchByTournamentId(int id)
         {
             using (var _context = new GameContext())
             {
@@ -84,7 +112,7 @@ namespace Game.Data
             }
         }
         
-        public static void UpdateMatch(Match match, DateTime time)
+        public void UpdateMatchTime(Match match, DateTime time)
         {
             using (var _context = new GameContext())
             {
@@ -94,7 +122,7 @@ namespace Game.Data
             }
         }
 
-        public static void DeleteMatch(Match match)
+        public void DeleteMatch(Match match)
         {
             using (var _context = new GameContext())
             {
@@ -103,12 +131,69 @@ namespace Game.Data
             }
         }
 
-        public static void DeleteManyMatchesFromTournament(List<Match> matches)
+        public void DeleteManyMatchesFromTournament(List<Match> matches)
         {
             using (var _context = new GameContext())
             {
                 _context.Matches.RemoveRange(matches);
                 _context.SaveChanges();
+            }
+        }
+
+        //Async
+        //Chose to have async for the Get methods because data is not being updated or changed having a reduced chance to break.
+        public async Task<Match> GetMatchByIdAsync(int id)
+        {
+            using (var _context = new GameContext())
+            {
+                var match = await _context.Matches.Where(m => m.Id == id)
+                    .Include(m => m.Players)
+                        .ThenInclude(pm => pm.Player)
+                        .ThenInclude(p => p.Characters)
+                        .ThenInclude(pc => pc.Color)
+                    .Include(m => m.Players)
+                        .ThenInclude(pm => pm.Player)
+                        .ThenInclude(p => p.Characters)
+                        .ThenInclude(pc => pc.Position)
+                    .FirstOrDefaultAsync();
+                return match;
+            }
+        }
+
+        public async Task<Match> FindFirstMatchByTournamentIdAsync(int id)
+        {
+            using (var _context = new GameContext())
+            {
+                var match = await _context.Matches.Where(m => m.TournamentId == id)
+                    .OrderByDescending(m => m.Time)
+                    .Include(m => m.Players)
+                        .ThenInclude(pm => pm.Player)
+                        .ThenInclude(p => p.Characters)
+                        .ThenInclude(pc => pc.Color)
+                    .Include(m => m.Players)
+                        .ThenInclude(pm => pm.Player)
+                        .ThenInclude(p => p.Characters)
+                        .ThenInclude(pc => pc.Position)
+                    .FirstOrDefaultAsync();
+                return match;
+            }
+        }
+
+        public async Task<List<Match>> GetAllMatchesAsync()
+        {
+            using (var _context = new GameContext())
+            {
+                var matches = await _context.Matches
+                    .Include(m => m.Players)
+                        .ThenInclude(pm => pm.Player)
+                        .ThenInclude(p => p.Characters)
+                        .ThenInclude(pc => pc.Color)
+                    .Include(m => m.Players)
+                        .ThenInclude(pm => pm.Player)
+                        .ThenInclude(p => p.Characters)
+                        .ThenInclude(pc => pc.Position)
+                    .ToListAsync();
+                return matches;
             }
         }
     }

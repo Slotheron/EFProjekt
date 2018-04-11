@@ -12,8 +12,8 @@ namespace Game.UI
     {
         static void Main(string[] args)
         {
-            Character myCharacter = CharacterRepo.FindCharacterById(1);
-            Player myPlayer = PlayerRepo.FindPlayerById(1);
+            SpecialMove newMove = new SpecialMove();
+            SpecialMoveRepo.AddSpecialMove(newMove);
         }
 
     }
