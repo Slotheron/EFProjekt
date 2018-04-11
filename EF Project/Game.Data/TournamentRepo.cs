@@ -188,6 +188,7 @@ namespace Game.Data
                 _context.SaveChanges();
             }
         }
+
         public void UpdateTournamentDate(int id, DateTime date)
         {
             using (var _context = new GameContext())
@@ -198,6 +199,7 @@ namespace Game.Data
                 _context.SaveChanges();
             }
         }
+
         public void UpdateTournamentCountry(int id, string country)
         {
             using (var _context = new GameContext())
@@ -208,6 +210,7 @@ namespace Game.Data
                 _context.SaveChanges();
             }
         }
+
         public void UpdateTournamentPrize(int id, double prizeMoney)
         {
             using (var _context = new GameContext())
@@ -270,6 +273,7 @@ namespace Game.Data
                 _context.SaveChanges();
             }
         }
+
         public void DeleteManyTournaments(List<Tournament> tournaments)
         {
             using (var _context = new GameContext())
@@ -356,7 +360,7 @@ namespace Game.Data
                         .ThenInclude(pm => pm.Player)
                         .ThenInclude(p => p.Characters)
                         .ThenInclude(pc => pc.Position)
-                    .ToList();
+                    .ToListAsync();
 
                 return tournaments;
             }
