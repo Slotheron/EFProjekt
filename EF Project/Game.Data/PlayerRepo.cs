@@ -217,7 +217,17 @@ namespace Game.Data
 
                 foreach (Match m in tournament.Matches)
                 {
-                    players.AddRange(GetAllPlayersByMatchId(m.Id));
+                    foreach (PlayerMatch pm in m.Players)
+                    {
+                        if (!players.Contains(pm.Player))
+                        {
+                            players.AddRange(GetAllPlayersByMatchId(m.Id));
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
                 }
                 return players;
             }
@@ -240,7 +250,17 @@ namespace Game.Data
 
                 foreach (Match m in tournament.Matches)
                 {
-                    players.AddRange(GetAllPlayersByMatchId(m.Id));
+                    foreach (PlayerMatch pm in m.Players)
+                    {
+                        if (!players.Contains(pm.Player))
+                        {
+                            players.AddRange(GetAllPlayersByMatchId(m.Id));
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
                 }
                 return players;
             }
